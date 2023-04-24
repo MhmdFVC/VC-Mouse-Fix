@@ -1,5 +1,5 @@
 Based off of [Lighnat0r's mouse sensitivity reset script](https://github.com/Lighnat0r-pers/Files/blob/master/GTA%20VC%20No%20Mouse%20Sensitivity%20Reset.zip), but modified to be specifically for VC and includes y-axis sensitivity fix functionality.  
-**This is the only mouse fix permitted for Vice City speedruns that are to be submitted to the speedrun.com leaderboards as of 2023/04/24.**  
+**This is the only mouse fix permitted for Vice City speedruns that are to be submitted to the speedrun.com leaderboards as of (TBD)**  
 
 To use, run the program and keep it open for the duration of your gaming session. You will not need to manually set the sensitivity in your settings more than once, even if you forget to open the program and attempt to start a new game; running the program and resetting at that point will adjust your sensitivity to the correct settings.
 
