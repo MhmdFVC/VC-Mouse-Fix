@@ -32,13 +32,17 @@ MainScript:
   if VersionOffset = -4088			; Steam
   {
     SensResetAddress := 0x46F393
-	YSensFixAddress := 0x47BF9F
+	YSensFixAddress4 := 0x47BF9F
 	YSensFixTarget := 0x94CBD8		; 9751512
   }
   Else if VersionOffset = -12280	; JP
   {
     SensResetAddress := 0x46F823	
-	YSensFixAddress := 0x47C496
+	YSensFixAddress1 := 0x479AC9	; Sniper first-person aim
+	YSensFixAddress2 := 0x47A864	; Rocket launcher first-person aim
+	YSensFixAddress3 := 0x47B3CC	; M4/ruger first-person aim
+	YSensFixAddress4 := 0x47C496	; Normal free aim
+	YSensFixAddress5 := 0x48238A	; "Runabout" (classic controls?)
 	YSensFixTarget := 0x94ABD8 		; 9743320
   }
   Else
@@ -57,8 +61,16 @@ MainScript:
     sleep %RefreshRate%
 	if Memory(3, SensResetAddress, 1) != SensResetTarget                                           
       Memory(4, SensResetAddress, SensResetTarget, 1)
-	if Memory(3, YSensFixAddress, 1) != YSensFixTarget                                           
-      Memory(4, YSensFixAddress, YSensFixTarget, 4)
+	if Memory(3, YSensFixAddress1, 1) != YSensFixTarget                                           
+      Memory(4, YSensFixAddress1, YSensFixTarget, 4)
+	if Memory(3, YSensFixAddress2, 1) != YSensFixTarget                                           
+      Memory(4, YSensFixAddress2, YSensFixTarget, 4)
+	if Memory(3, YSensFixAddress3, 1) != YSensFixTarget                                           
+      Memory(4, YSensFixAddress3, YSensFixTarget, 4)
+	if Memory(3, YSensFixAddress4, 1) != YSensFixTarget                                           
+      Memory(4, YSensFixAddress4, YSensFixTarget, 4)
+	if Memory(3, YSensFixAddress5, 1) != YSensFixTarget                                           
+      Memory(4, YSensFixAddress5, YSensFixTarget, 4)
   }
   sleep 5000
   goto MainScript
