@@ -69,7 +69,7 @@ MainScript:
   {
     sleep %RefreshRate%
     if Memory(3, SensResetAddress, 1) != 0x90                                        
-      loop 10 ; The loop is to replace the entire command (10 bytes) that sets mouse sensitivity upon reset with NOP commands (0x90).
+      loop 10 ; The loop is to replace the entire command (10 bytes) that sets mouse sensitivity upon reset with NOP (0x90).
       {
         Address := SensResetAddress + A_Index - 1
         Memory(4, Address, 0x90, 1)
