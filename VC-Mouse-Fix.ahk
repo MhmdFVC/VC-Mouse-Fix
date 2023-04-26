@@ -29,56 +29,56 @@ MainScript:
   
   GameRunningAddress := 0x00400000
   
-  if VersionOffset = -4088			; Steam
+  if VersionOffset = -4088            ; Steam
   {
     SensResetAddress := 0x0046F391
-	YSensFixAddress1 := 0x004795D2
-	YSensFixAddress2 := 0x0047A36D
-	YSensFixAddress3 := 0x0047AED5
-	YSensFixAddress4 := 0x0047BF9F
-	YSensFixAddress5 := 0x00481E93
-	YSensFixTarget := 0x94CBD8		; 9751512
+    YSensFixAddress1 := 0x004795D2
+    YSensFixAddress2 := 0x0047A36D
+    YSensFixAddress3 := 0x0047AED5
+    YSensFixAddress4 := 0x0047BF9F
+    YSensFixAddress5 := 0x00481E93
+    YSensFixTarget := 0x94CBD8        ; 9751512
   }
-  Else if VersionOffset = -12280	; JP
+  Else if VersionOffset = -12280    ; JP
   {
-    SensResetAddress := 0x0046F821	
-	YSensFixAddress1 := 0x00479AC9	; Sniper first-person aim
-	YSensFixAddress2 := 0x0047A864	; Rocket launcher first-person aim
-	YSensFixAddress3 := 0x0047B3CC	; M4/ruger first-person aim
-	YSensFixAddress4 := 0x0047C496	; Normal free aim
-	YSensFixAddress5 := 0x0048238A	; "Runabout" (classic controls?)
-	YSensFixTarget := 0x94ABD8 		; 9743320
+    SensResetAddress := 0x0046F821    
+    YSensFixAddress1 := 0x00479AC9    ; Sniper first-person aim
+    YSensFixAddress2 := 0x0047A864    ; Rocket launcher first-person aim
+    YSensFixAddress3 := 0x0047B3CC    ; M4/ruger first-person aim
+    YSensFixAddress4 := 0x0047C496    ; Normal free aim
+    YSensFixAddress5 := 0x0048238A    ; "Runabout" (classic controls?)
+    YSensFixTarget := 0x94ABD8         ; 9743320
   }
   Else
   {
-    SensResetAddress := 0x0046F4B1	; Retail 1.0 and 1.1 probably
-	YSensFixAddress1 := 0x004796F2	; Y Sens Fix addresses are for Retail 1.x
-	YSensFixAddress2 := 0x0047A48D
-	YSensFixAddress3 := 0x0047AFF5
-	YSensFixAddress4 := 0x0047C0BF
-	YSensFixAddress5 := 0x00481FB3
-	YSensFixTarget := 0x94DBD0		; Retail 1.0; 9755600
-;   YSensFixTarget := 0x94DBD8		; Retail 1.1, commenting out till proper support added; 9755608
+    SensResetAddress := 0x0046F4B1    ; Retail 1.0 and 1.1 probably
+    YSensFixAddress1 := 0x004796F2    ; Y Sens Fix addresses are for Retail 1.x
+    YSensFixAddress2 := 0x0047A48D
+    YSensFixAddress3 := 0x0047AFF5
+    YSensFixAddress4 := 0x0047C0BF
+    YSensFixAddress5 := 0x00481FB3
+    YSensFixTarget := 0x94DBD0        ; Retail 1.0; 9755600
+;   YSensFixTarget := 0x94DBD8        ; Retail 1.1, commenting out till proper support added; 9755608
   }
   
   While Memory(3, GameRunningAddress, 1) != "Fail"
   {
     sleep %RefreshRate%
-	if Memory(3, SensResetAddress, 1) != 0x90                                        
+    if Memory(3, SensResetAddress, 1) != 0x90                                        
       loop 10
       {
         Address := SensResetAddress + A_Index - 1
         Memory(4, Address, 0x90, 1)
       }
-	if Memory(3, YSensFixAddress1, 1) != YSensFixTarget                                           
+    if Memory(3, YSensFixAddress1, 1) != YSensFixTarget                                           
       Memory(4, YSensFixAddress1, YSensFixTarget, 4)
-	if Memory(3, YSensFixAddress2, 1) != YSensFixTarget                                           
+    if Memory(3, YSensFixAddress2, 1) != YSensFixTarget                                           
       Memory(4, YSensFixAddress2, YSensFixTarget, 4)
-	if Memory(3, YSensFixAddress3, 1) != YSensFixTarget                                           
+    if Memory(3, YSensFixAddress3, 1) != YSensFixTarget                                           
       Memory(4, YSensFixAddress3, YSensFixTarget, 4)
-	if Memory(3, YSensFixAddress4, 1) != YSensFixTarget                                           
+    if Memory(3, YSensFixAddress4, 1) != YSensFixTarget                                           
       Memory(4, YSensFixAddress4, YSensFixTarget, 4)
-	if Memory(3, YSensFixAddress5, 1) != YSensFixTarget                                           
+    if Memory(3, YSensFixAddress5, 1) != YSensFixTarget                                           
       Memory(4, YSensFixAddress5, YSensFixTarget, 4)
   }
   sleep 5000
@@ -145,7 +145,7 @@ Memory(Type=3,Param1=0,Param2=0,Param3=0,Param4=0)
     }
     Return !ProcessHandle ? "Handle Closed: " Closed : "Fail"
   }
-  Else If Type = 4	; Write memory value
+  Else If Type = 4    ; Write memory value
   {
     If (Param4 = "Unicode" OR Param4 = "Ascii")
     {
@@ -175,9 +175,9 @@ Memory(Type=3,Param1=0,Param2=0,Param3=0,Param4=0)
       If (Param4 = "Float")
         Param2 := FloatToHex(Param2)
       Param3 := ((!Param3) ? 4 : Param3)
-	  ;  WriteProcessMemory DLL call accepts 5 parameters (in order):
-	  ;  Process handle, base address (Param1), buffer of data to be written (Param2), # of bytes to be written, and 0 (unused in this program).
-	  If (ProcessHandle) && DllCall("WriteProcessMemory","UInt",ProcessHandle,"UInt",Param1,"Uint*",Param2,"Uint",Param3,"Uint",0)
+      ;  WriteProcessMemory DLL call accepts 5 parameters (in order):
+      ;  Process handle, base address (Param1), buffer of data to be written (Param2), # of bytes to be written, and 0 (unused in this program).
+      If (ProcessHandle) && DllCall("WriteProcessMemory","UInt",ProcessHandle,"UInt",Param1,"Uint*",Param2,"Uint",Param3,"Uint",0)
         Return "Success"
       Return !ProcessHandle ? "Handle Closed: " closed : "Fail"
     }
@@ -194,13 +194,13 @@ Memory(Type=3,Param1=0,Param2=0,Param3=0,Param4=0)
 GameVersionCheck()
 {
   Value := Memory(3, 0x00608578, 1)
-  if Value = 0x5D	; Retail 1.0
+  if Value = 0x5D    ; Retail 1.0
     Return 0
-  if Value = 0x81	; Retail 1.1
+  if Value = 0x81    ; Retail 1.1
     Return 8
-  if Value = 0x5B	; Steam
+  if Value = 0x5B    ; Steam
     Return -0xFF8
-  if Value = 0x44	; JP
+  if Value = 0x44    ; JP
     Return -0x2FF8
   Msgbox Error`: The script could not determine the version of GTA Vice City %Value%
 }
