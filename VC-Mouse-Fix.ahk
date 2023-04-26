@@ -1,3 +1,6 @@
+; Based on Lighnat0r's mouse sens reset fix script.
+; Comments, formatting edits, and merging in Lighnat0r's y-sens fix ASI functionality by Mhmd_FVC
+
 #SingleInstance force
 OnExit, ExitSequence
 SplitPath, A_ScriptName,,,,ProgramNameNoExt
@@ -6,7 +9,7 @@ menu, tray, NoStandard
 menu, tray, Add, Restart Program, RestartSequence
 menu, tray, Add, Exit, ExitSequence
 RefreshRate = 20
-TrayTip, VC Mouse Fix, The script will fix y-axis sens and prevent the game from resetting the mouse sensitivity when you reset. The effect will last until the game is closed.,20
+TrayTip, VC Mouse Fix, The script will fix y-axis sens and prevent the game from resetting the mouse sensitivity when you reset. The effect will last until the game is closed. `n`n Originally by Lighnat0r,20
 
 ;If (IsLabel("DebugFunctions") AND A_IsCompiled != 1)
 ;  gosub DebugFunctions
