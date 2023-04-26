@@ -74,15 +74,15 @@ MainScript:
         Address := SensResetAddress + A_Index - 1
         Memory(4, Address, 0x90, 1)
       }
-    if Memory(3, YSensFixAddress1, 1) != YSensFixTarget                                           
+    if Memory(3, YSensFixAddress1, 4) != YSensFixTarget                                           
       Memory(4, YSensFixAddress1, YSensFixTarget, 4)
-    if Memory(3, YSensFixAddress2, 1) != YSensFixTarget                                           
+    if Memory(3, YSensFixAddress2, 4) != YSensFixTarget                                           
       Memory(4, YSensFixAddress2, YSensFixTarget, 4)
-    if Memory(3, YSensFixAddress3, 1) != YSensFixTarget                                           
+    if Memory(3, YSensFixAddress3, 4) != YSensFixTarget                                           
       Memory(4, YSensFixAddress3, YSensFixTarget, 4)
-    if Memory(3, YSensFixAddress4, 1) != YSensFixTarget                                           
+    if Memory(3, YSensFixAddress4, 4) != YSensFixTarget                                           
       Memory(4, YSensFixAddress4, YSensFixTarget, 4)
-    if Memory(3, YSensFixAddress5, 1) != YSensFixTarget                                           
+    if Memory(3, YSensFixAddress5, 4) != YSensFixTarget                                           
       Memory(4, YSensFixAddress5, YSensFixTarget, 4)
   }
   sleep 5000
