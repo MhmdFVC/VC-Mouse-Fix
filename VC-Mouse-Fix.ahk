@@ -31,44 +31,45 @@ MainScript:
   
   if VersionOffset = -4088			; Steam
   {
-    SensResetAddress := 0x46F393
-	YSensFixAddress1 := 0x4795D2
-	YSensFixAddress2 := 0x47A36D
-	YSensFixAddress3 := 0x47AED5
-	YSensFixAddress4 := 0x47BF9F
-	YSensFixAddress5 := 0x481E93
+    SensResetAddress := 0x0046F391
+	YSensFixAddress1 := 0x004795D2
+	YSensFixAddress2 := 0x0047A36D
+	YSensFixAddress3 := 0x0047AED5
+	YSensFixAddress4 := 0x0047BF9F
+	YSensFixAddress5 := 0x00481E93
 	YSensFixTarget := 0x94CBD8		; 9751512
   }
   Else if VersionOffset = -12280	; JP
   {
-    SensResetAddress := 0x46F823	
-	YSensFixAddress1 := 0x479AC9	; Sniper first-person aim
-	YSensFixAddress2 := 0x47A864	; Rocket launcher first-person aim
-	YSensFixAddress3 := 0x47B3CC	; M4/ruger first-person aim
-	YSensFixAddress4 := 0x47C496	; Normal free aim
-	YSensFixAddress5 := 0x48238A	; "Runabout" (classic controls?)
+    SensResetAddress := 0x0046F821	
+	YSensFixAddress1 := 0x00479AC9	; Sniper first-person aim
+	YSensFixAddress2 := 0x0047A864	; Rocket launcher first-person aim
+	YSensFixAddress3 := 0x0047B3CC	; M4/ruger first-person aim
+	YSensFixAddress4 := 0x0047C496	; Normal free aim
+	YSensFixAddress5 := 0x0048238A	; "Runabout" (classic controls?)
 	YSensFixTarget := 0x94ABD8 		; 9743320
   }
   Else
   {
-    SensResetAddress := 0x46F4B3	; Retail 1.0 and 1.1 probably
-	YSensFixAddress1 := 0x4796F2
-	YSensFixAddress2 := 0x47A48D
-	YSensFixAddress3 := 0x47AFF5
-	YSensFixAddress4 := 0x47C0BF		; Retail 1.0 and 1.1
-	YSensFixAddress5 := 0x481FB3
+    SensResetAddress := 0x0046F4B1	; Retail 1.0 and 1.1 probably
+	YSensFixAddress1 := 0x004796F2	; Y Sens Fix addresses are for Retail 1.x
+	YSensFixAddress2 := 0x0047A48D
+	YSensFixAddress3 := 0x0047AFF5
+	YSensFixAddress4 := 0x0047C0BF
+	YSensFixAddress5 := 0x00481FB3
 	YSensFixTarget := 0x94DBD0		; Retail 1.0; 9755600
-   ;YSensFixTarget := 0x94DBD8		; Retail 1.1, commenting out till proper support added; 9755608
+;   YSensFixTarget := 0x94DBD8		; Retail 1.1, commenting out till proper support added; 9755608
   }
-
-  SensResetTarget := 0x90 ; 144. This magic number seems to fix the mouse sens being reset on new games for some reason.
-  
   
   While Memory(3, GameRunningAddress, 1) != "Fail"
   {
     sleep %RefreshRate%
-	if Memory(3, SensResetAddress, 1) != SensResetTarget                                           
-      Memory(4, SensResetAddress, SensResetTarget, 1)
+	if Memory(3, SensResetAddress, 1) != 0x90                                        
+      loop 10
+      {
+        Address := SensResetAddress + A_Index - 1
+        Memory(4, Address, 0x90, 1)
+      }
 	if Memory(3, YSensFixAddress1, 1) != YSensFixTarget                                           
       Memory(4, YSensFixAddress1, YSensFixTarget, 4)
 	if Memory(3, YSensFixAddress2, 1) != YSensFixTarget                                           
