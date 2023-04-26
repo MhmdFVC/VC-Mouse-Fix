@@ -9,11 +9,11 @@ menu, tray, tip, %ProgramNameNoExt%
 menu, tray, NoStandard
 menu, tray, Add, Restart Program, RestartSequence
 menu, tray, Add, Exit, ExitSequence
-RefreshRate = 20
+RefreshRate = 1000
 TrayTip, VC Mouse Fix, The script will fix y-axis sens and prevent the game from resetting the mouse sensitivity when you reset. The effect will last until the game is closed. `n`n Originally by Lighnat0r,20
 
-;If (IsLabel("DebugFunctions") AND A_IsCompiled != 1)
-;  gosub DebugFunctions
+; If (IsLabel("DebugFunctions") AND A_IsCompiled != 1)
+;   gosub DebugFunctions
 goto MainScript
 
 MainScript:
@@ -22,14 +22,21 @@ MainScript:
   WinWait ahk_class %WindowClass%
   WinGetTitle, CurrentWindowName
   If (CurrentWindowName != WindowName)
-    goto MainScript
+  {
+	sleep %RefreshRate%
+	goto MainScript
+  }
+  
   WinGet, PID, PID
   Memory(1, PID)
   Process, Exist, %PID%
   if ErrorLevel != 0
     VersionOffset := GameVersionCheck()
   else
-    goto MainScript
+  {
+	sleep %RefreshRate%
+	goto MainScript
+  }
   
   GameRunningAddress := 0x00400000
   
@@ -65,27 +72,23 @@ MainScript:
 ;   YSensFixTarget := 0x94DBD8        ; Retail 1.1, commenting out till proper support added; 9755608
   }
   
-  While Memory(3, GameRunningAddress, 1) != "Fail"
+  If Memory(3, GameRunningAddress, 1) != "Fail"
   {
-    sleep %RefreshRate%
-    if Memory(3, SensResetAddress, 1) != 0x90                                        
-      loop 10 ; The loop is to replace the entire command (10 bytes) that sets mouse sensitivity upon reset with NOP (0x90).
-      {
-        Address := SensResetAddress + A_Index - 1
-        Memory(4, Address, 0x90, 1)
-      }
-    if Memory(3, YSensFixAddress1, 4) != YSensFixTarget                                           
-      Memory(4, YSensFixAddress1, YSensFixTarget, 4)
-    if Memory(3, YSensFixAddress2, 4) != YSensFixTarget                                           
-      Memory(4, YSensFixAddress2, YSensFixTarget, 4)
-    if Memory(3, YSensFixAddress3, 4) != YSensFixTarget                                           
-      Memory(4, YSensFixAddress3, YSensFixTarget, 4)
-    if Memory(3, YSensFixAddress4, 4) != YSensFixTarget                                           
-      Memory(4, YSensFixAddress4, YSensFixTarget, 4)
-    if Memory(3, YSensFixAddress5, 4) != YSensFixTarget                                           
-      Memory(4, YSensFixAddress5, YSensFixTarget, 4)
-  }
-  sleep 5000
+    Loop 10 ; The loop is to replace the entire command (10 bytes) that sets mouse sensitivity upon reset with NOP (0x90). Doesn't work by writing 10 bytes into one address here.
+    {
+      Address := SensResetAddress + A_Index - 1 ; A_Index is a native variable to AHK which reflects the current repetition of a loop starting from 1
+      Memory(4, Address, 0x90, 1)
+    }                                         
+    Memory(4, YSensFixAddress1, YSensFixTarget, 4)                                          
+    Memory(4, YSensFixAddress2, YSensFixTarget, 4)                                          
+    Memory(4, YSensFixAddress3, YSensFixTarget, 4)                                          
+    Memory(4, YSensFixAddress4, YSensFixTarget, 4)                                          
+    Memory(4, YSensFixAddress5, YSensFixTarget, 4)
+  }  
+  
+  While Memory(3, GameRunningAddress, 1) != "Fail" ; After setting values, do nothing until the game closes.
+	sleep %RefreshRate%
+	
   goto MainScript
 
 ExitSequence:
