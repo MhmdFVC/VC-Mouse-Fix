@@ -1,6 +1,6 @@
 ; Based on Lighnat0r's mouse sens reset fix script.
 ; Comments, formatting edits, and merging in Lighnat0r's y-sens fix ASI functionality by Mhmd_FVC
-; Technical assistance/explanations provided by Nick007J
+; Technical explanations/insight provided by Nick007J
 
 #SingleInstance force
 OnExit, ExitSequence
