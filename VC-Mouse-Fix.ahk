@@ -43,7 +43,7 @@ MainScript:
     YSensFixAddress5 := 0x00481E93
     YSensFixTarget := 0x94CBD8        ; 9751512
   }
-  Else if VersionOffset = -12280    ; JP
+  Else if VersionOffset = -12280      ; JP
   {
     SensResetAddress := 0x0046F821    
     YSensFixAddress1 := 0x00479AC9    ; Sniper first-person aim
@@ -51,7 +51,7 @@ MainScript:
     YSensFixAddress3 := 0x0047B3CC    ; M4/ruger first-person aim
     YSensFixAddress4 := 0x0047C496    ; Normal free aim
     YSensFixAddress5 := 0x0048238A    ; "Runabout" (classic controls?)
-    YSensFixTarget := 0x94ABD8         ; 9743320
+    YSensFixTarget := 0x94ABD8        ; 9743320
   }
   Else
   {
@@ -69,7 +69,7 @@ MainScript:
   {
     sleep %RefreshRate%
     if Memory(3, SensResetAddress, 1) != 0x90                                        
-      loop 10
+      loop 10 ; The loop is to replace the entire command (10 bytes) that sets mouse sensitivity upon reset with NOP commands (0x90).
       {
         Address := SensResetAddress + A_Index - 1
         Memory(4, Address, 0x90, 1)
