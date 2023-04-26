@@ -8,8 +8,8 @@ menu, tray, Add, Exit, ExitSequence
 RefreshRate = 20
 TrayTip, VC Mouse Fix, The script will fix y-axis sens and prevent the game from resetting the mouse sensitivity when you reset. The effect will last until the game is closed.,20
 
-If (IsLabel("DebugFunctions") AND A_IsCompiled != 1)
-  gosub DebugFunctions
+;If (IsLabel("DebugFunctions") AND A_IsCompiled != 1)
+;  gosub DebugFunctions
 goto MainScript
 
 MainScript:
@@ -71,13 +71,13 @@ RestartSequence:
   sleep 1000
   return
   
-DebugFunctions:
-  Hotkey, F7, DebugListvars, On
-  return
+; DebugFunctions:
+;   Hotkey, F7, DebugListvars, On
+;   return
   
-DebugListvars:
-  Listvars
-  return
+; DebugListvars:
+;   Listvars
+;   return
 
 Memory(Type=3,Param1=0,Param2=0,Param3=0,Param4=0)
 {
