@@ -32,7 +32,11 @@ MainScript:
   if VersionOffset = -4088			; Steam
   {
     SensResetAddress := 0x46F393
+	YSensFixAddress1 := 0x4795D2
+	YSensFixAddress2 := 0x47A36D
+	YSensFixAddress3 := 0x47AED5
 	YSensFixAddress4 := 0x47BF9F
+	YSensFixAddress5 := 0x481E93
 	YSensFixTarget := 0x94CBD8		; 9751512
   }
   Else if VersionOffset = -12280	; JP
@@ -48,7 +52,11 @@ MainScript:
   Else
   {
     SensResetAddress := 0x46F4B3	; Retail 1.0 and 1.1 probably
-	YSensFixAddress := 0x47C0BF		; Retail 1.0 and 1.1
+	YSensFixAddress1 := 0x4796F2
+	YSensFixAddress2 := 0x47A48D
+	YSensFixAddress3 := 0x47AFF5
+	YSensFixAddress4 := 0x47C0BF		; Retail 1.0 and 1.1
+	YSensFixAddress5 := 0x481FB3
 	YSensFixTarget := 0x94DBD0		; Retail 1.0; 9755600
    ;YSensFixTarget := 0x94DBD8		; Retail 1.1, commenting out till proper support added; 9755608
   }
