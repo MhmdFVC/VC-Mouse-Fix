@@ -60,10 +60,10 @@ MainScript:
     YSensFixAddress5 := 0x0048238A    ; "Runabout" (classic controls?)
     YSensFixTarget := 0x94ABD8        ; 9743320
   }
-  Else
+  Else                                ; Retail 1.0 and 1.1
   {
-    SensResetAddress := 0x0046F4B1    ; Retail 1.0 and 1.1 probably
-    YSensFixAddress1 := 0x004796F2    ; Y Sens Fix addresses are for Retail 1.x
+    SensResetAddress := 0x0046F4B1    
+    YSensFixAddress1 := 0x004796F2
     YSensFixAddress2 := 0x0047A48D
     YSensFixAddress3 := 0x0047AFF5
     YSensFixAddress4 := 0x0047C0BF
