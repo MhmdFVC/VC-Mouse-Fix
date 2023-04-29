@@ -68,8 +68,10 @@ MainScript:
     YSensFixAddress3 := 0x0047AFF5
     YSensFixAddress4 := 0x0047C0BF
     YSensFixAddress5 := 0x00481FB3
-    YSensFixTarget := 0x94DBD0        ; Retail 1.0; 9755600
-;   YSensFixTarget := 0x94DBD8        ; Retail 1.1, commenting out till proper support added; 9755608
+    if VersionOffset = 8
+	  YSensFixTarget := 0x94DBD8    ; Retail 1.1; 9755608
+	else
+      YSensFixTarget := 0x94DBD0    ; Retail 1.0; 9755600
   }
   
   If Memory(3, GameRunningAddress, 1) != "Fail"
