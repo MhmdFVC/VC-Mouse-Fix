@@ -24,6 +24,7 @@ The addresses noted below will be provided in the above order.
 * For Steam, the value 0x94CBD8 is written to addresses 0x004795D2, 0x0047A36D, 0x0047AED5, 0x0047BF9F, and 0x00481E93.
 * For JP, the value 0x94ABD8 is written to addresses 0x00479AC9, 0x0047A864, 0x0047B3CC, 0x0047C496, and 0x0048238A.
 
-# Disclaimers
-All memory addresses taken from Lighnat0r's scripts (the mouse sens reset script and the y-axis fix ASI, which this is a fork of; the mouse sens reset fix didn't have its own repo).  
+# Credits
+All memory addresses taken from Lighnat0r's scripts (the mouse sens reset script and the y-axis fix ASI, which this is a fork of; the mouse sens reset fix didn't have its own repo).
+Technical explanation of the addresses' functions graciously provided by Nick007J
 Mouse icon within the program icon taken from [Freepik on Flaticon](https://www.flaticon.com/free-icons/mouse)
