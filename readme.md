@@ -9,7 +9,7 @@ To use, run the program and keep it open for the duration of your gaming session
 
 # Technical
 ## Sensitivity reset fix
-This works by replacing the 10 consecutive memory addresses that the instruction to set mouse sensitivity upon new game spans (as taken from Lighnat0r's program) with NOP (value 0x90), which makes it do nothing instead.
+This works by overwriting the commands which set mouse sensitivity upon new game with 10 NOPs (value 0x90), which makes nothing happen instead.
 * For Retail 1.0/1.1, 0x90 is written to addresses 0x0046F4B1 - 0x0046F4BA
 * For Steam, 0x90 is written to addresses 0x0046F391 - 0x0046F39A
 * For JP, 0x90 is written to addresses 0x0046F821 - 0x0046F82A
