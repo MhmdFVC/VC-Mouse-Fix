@@ -3,7 +3,10 @@ Based off of [Lighnat0r's mouse sensitivity reset script](https://github.com/Lig
 **This is the only mouse fix permitted for Vice City speedruns that are to be submitted to the speedrun.com leaderboards as of 2023-04-29**  
 
 To use, run the program and keep it open for the duration of your gaming session. You will not need to manually set the sensitivity in your settings more than once, even if you forget to open the program and attempt to start a new game; running the program and resetting at that point will adjust your sensitivity to the correct settings.
- 
+### Downloads
+#### - [Version 1.02 (AHK, tray icon)](https://github.com/MhmdFVC/VC-Mouse-Fix/releases/download/1.02/VC-Mouse-Fix-1.02.exe)
+#### - [Version 2.0 (C, console output and uses fewer resources)](https://github.com/MhmdFVC/VC-Mouse-Fix/releases/download/2.0/VC-Mouse-Fix-2.0.exe)
+
 # Technical
 ## Sensitivity reset fix
 This works by replacing the 10 consecutive memory addresses that the instruction to set mouse sensitivity upon new game spans (as taken from Lighnat0r's program) with NOP (value 0x90), which makes it do nothing instead.
