@@ -10,7 +10,8 @@ menu, tray, NoStandard
 menu, tray, Add, Restart Program, RestartSequence
 menu, tray, Add, Exit, ExitSequence
 RefreshRate = 1000
-TrayTip, VC Mouse Fix, The script will fix y-axis sens and prevent the game from resetting the mouse sensitivity when you reset. The effect will last until the game is closed. `n`n Originally by Lighnat0r,20
+
+;TrayTip, VC Mouse Fix, The script will fix y-axis sens and prevent the game from resetting the mouse sensitivity when you reset. The effect will last until the game is closed. `n`n Originally by Lighnat0r,20
 
 ; If (IsLabel("DebugFunctions") AND A_IsCompiled != 1)
 ;   gosub DebugFunctions
@@ -26,52 +27,53 @@ MainScript:
 	sleep %RefreshRate%
 	goto MainScript
   }
-  
+
   WinGet, PID, PID
+  Memory(2)         ; Attempts to close handle to VC if a previous one exists
   Memory(1, PID)
   Process, Exist, %PID%
   if ErrorLevel != 0
-    VersionOffset := GameVersionCheck()
+    Version := Memory(3, 0x608578, 1)
   else
   {
 	sleep %RefreshRate%
 	goto MainScript
   }
   
-  GameRunningAddress := 0x00400000
+  GameRunningAddress := 0x400000
   
-  if VersionOffset = -4088            ; Steam
+  if Version = 0x5B            ; Steam
   {
-    SensResetAddress := 0x0046F391
-    YSensFixAddress1 := 0x004795D2
-    YSensFixAddress2 := 0x0047A36D
-    YSensFixAddress3 := 0x0047AED5
-    YSensFixAddress4 := 0x0047BF9F
-    YSensFixAddress5 := 0x00481E93
-    YSensFixTarget := 0x94CBD8        ; 9751512
+    SensResetAddress := 0x46F391
+    YSensFixAddress1 := 0x4795D2
+    YSensFixAddress2 := 0x47A36D
+    YSensFixAddress3 := 0x47AED5
+    YSensFixAddress4 := 0x47BF9F
+    YSensFixAddress5 := 0x481E93
+    YSensFixTarget := 0x94CBD8
   }
-  Else if VersionOffset = -12280      ; JP
+  Else if Version = 0x44      ; JP
   {
-    SensResetAddress := 0x0046F821    
-    YSensFixAddress1 := 0x00479AC9    ; Sniper first-person aim
-    YSensFixAddress2 := 0x0047A864    ; Rocket launcher first-person aim
-    YSensFixAddress3 := 0x0047B3CC    ; M4/ruger first-person aim
-    YSensFixAddress4 := 0x0047C496    ; Normal free aim
-    YSensFixAddress5 := 0x0048238A    ; "Runabout" (classic controls?)
-    YSensFixTarget := 0x94ABD8        ; 9743320
+    SensResetAddress := 0x46F821    
+    YSensFixAddress1 := 0x479AC9    ; Sniper first-person aim
+    YSensFixAddress2 := 0x47A864    ; Rocket launcher first-person aim
+    YSensFixAddress3 := 0x47B3CC    ; M4/ruger first-person aim
+    YSensFixAddress4 := 0x47C496    ; Normal free aim
+    YSensFixAddress5 := 0x48238A    ; "Runabout" (classic controls?)
+    YSensFixTarget := 0x94ABD8
   }
   Else                                ; Retail 1.0 and 1.1
   {
-    SensResetAddress := 0x0046F4B1    
-    YSensFixAddress1 := 0x004796F2
-    YSensFixAddress2 := 0x0047A48D
-    YSensFixAddress3 := 0x0047AFF5
-    YSensFixAddress4 := 0x0047C0BF
-    YSensFixAddress5 := 0x00481FB3
-    if VersionOffset = 8
-	  YSensFixTarget := 0x94DBD8    ; Retail 1.1; 9755608
+    SensResetAddress := 0x46F4B1    
+    YSensFixAddress1 := 0x4796F2
+    YSensFixAddress2 := 0x47A48D
+    YSensFixAddress3 := 0x47AFF5
+    YSensFixAddress4 := 0x47C0BF
+    YSensFixAddress5 := 0x481FB3
+    if Version = 0x81               ; Retail 1.1
+	  YSensFixTarget := 0x94DBD8    
 	else
-      YSensFixTarget := 0x94DBD0    ; Retail 1.0; 9755600
+      YSensFixTarget := 0x94DBD0    ; Retail 1.0
   }
   
   If Memory(3, GameRunningAddress, 1) != "Fail"
@@ -94,6 +96,7 @@ MainScript:
   goto MainScript
 
 ExitSequence:
+  Memory(2)
   exitapp
 
 RestartSequence:
@@ -198,20 +201,6 @@ Memory(Type=3,Param1=0,Param2=0,Param3=0,Param4=0)
       Return Param1
     Return Param1 + Param2
   }
-}
-
-GameVersionCheck()
-{
-  Value := Memory(3, 0x00608578, 1)
-  if Value = 0x5D    ; Retail 1.0
-    Return 0
-  if Value = 0x81    ; Retail 1.1
-    Return 8
-  if Value = 0x5B    ; Steam
-    Return -0xFF8
-  if Value = 0x44    ; JP
-    Return -0x2FF8
-  Msgbox Error`: The script could not determine the version of GTA Vice City %Value%
 }
 
 GetLastErrorMessage()
