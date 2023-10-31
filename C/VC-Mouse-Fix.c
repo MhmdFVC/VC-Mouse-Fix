@@ -6,16 +6,20 @@
 #include <windows.h>
 #include <tlhelp32.h>
 
+// Prototypes
 DWORD getPidFromExe(char exe[]);
 void msleep (int ms);
 void exitProg(int signum);
 
-const char nop = 0x90;
-DWORD vcPid, addrToWrite, sensResetAddr, ySensFixAddr1, ySensFixAddr2, ySensFixAddr3, ySensFixAddr4, ySensFixAddr5, ySensFixTarget;
-short versionValue = 0x0;
+// Var declarations
+const unsigned char nopVal = 0x90;
+const char* nop = &nopVal;
+unsigned char versionValue = 0x0;
 int gameRunning = 0, attemptCount = 0;
+DWORD vcPid, addrToWrite, sensResetAddr, ySensFixAddr1, ySensFixAddr2, ySensFixAddr3, ySensFixAddr4, ySensFixAddr5, ySensFixTarget;
 HANDLE processes, hViceCity;
 
+// Main
 int main()
 {
     SetConsoleTitle("VC Mouse Fix");
@@ -92,7 +96,7 @@ int main()
         for (char byte = 0; byte < 10; byte++)  // Writes 10 NOP instructions into this block to override sens reset
         {
             addrToWrite++;
-            WriteProcessMemory(hViceCity, (LPVOID)addrToWrite, &nop, 1, 0);
+            WriteProcessMemory(hViceCity, (LPVOID)addrToWrite, nop, 1, 0);
         }
         WriteProcessMemory(hViceCity, (LPVOID)ySensFixAddr1, &ySensFixTarget, 4, 0);
         WriteProcessMemory(hViceCity, (LPVOID)ySensFixAddr2, &ySensFixTarget, 4, 0);
