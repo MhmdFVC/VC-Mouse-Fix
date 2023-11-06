@@ -4,8 +4,8 @@ Based off of [Lighnat0r's mouse sensitivity reset script](https://github.com/Lig
 
 To use, run the program and keep it open for the duration of your gaming session. You will not need to manually set the sensitivity in your settings more than once, even if you forget to open the program and attempt to start a new game; running the program and resetting at that point will adjust your sensitivity to the correct settings.
 ### Downloads
+#### - [Version 1.02](https://github.com/MhmdFVC/VC-Mouse-Fix/releases/download/1.02/VC-Mouse-Fix-1.02.exe) - Normal AHK version. No window, just sits as a low-key icon in your task area.
 #### - [Version 2.01](https://github.com/MhmdFVC/VC-Mouse-Fix/releases/download/2.01/VC-Mouse-Fix-2.01.exe) - New experimental version of the VC Mouse Fix written in C. Comes with console output which logs program status and session attempt count. Recommended for gamers with a Pentium IV or below.
-#### - [Version 1.02](https://github.com/MhmdFVC/VC-Mouse-Fix/releases/download/1.02/VC-Mouse-Fix-1.02.exe)
 
 # Technical
 ## Sensitivity reset fix
