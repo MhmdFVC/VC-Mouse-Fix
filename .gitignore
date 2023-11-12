@@ -1,4 +1,7 @@
 
+.vscode/c_cpp_properties.json
+.vscode/settings.json
+.vscode/tasks.json
 .vs/VSWorkspaceState.json
 .vs/VC-Mouse-Fix/v17/ipch/AutoPCH/de84f90de3274b88/VC-MOUSE-FIX.ipch
 .vs/VC-Mouse-Fix/v17/ipch/AutoPCH/d16f8a6f590937f3/VC-MOUSE-FIX.ipch
@@ -44,3 +47,4 @@ vs/Debug/vs.tlog/vs.lastbuildstate
 vs/vs.vcxproj
 vs/vs.vcxproj.filters
 vs/vs.vcxproj.user
+.vs/VC-Mouse-Fix/FileContentIndex/8899bc38-0802-4766-870d-152a45ec0711.vsidx
