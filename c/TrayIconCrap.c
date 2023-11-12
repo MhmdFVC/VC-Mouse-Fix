@@ -1,3 +1,5 @@
+#include <windows.h>
+
 NOTIFYICONDATAW trayIcon;
 
 char makeTrayIcon(HWND windowHandle);

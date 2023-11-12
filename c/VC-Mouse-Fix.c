@@ -10,9 +10,9 @@
 void exitProg(int signum);
 
 // Var declarations
-const BYTE nopVal=0x90, oneVal=1, *nop=&nopVal, *one=&oneVal;
-BYTE *addrToWrite=NULL, *sensResetAddr=NULL, *nastyGameAddr=NULL, versionValue=0, nastyGameVal=0;
-DWORD vcPid=0, ySensFixTarget=0, *ySensFixAddr1=NULL, *ySensFixAddr2=NULL, *ySensFixAddr3=NULL, *ySensFixAddr4=NULL, *ySensFixAddr5=NULL, gameRunning=0, attemptCount=0;
+const unsigned char nopVal=0x90, oneVal=1;
+unsigned char *addrToWrite=NULL, *sensResetAddr=NULL, *nastyGameAddr=NULL, version=0, nastyGame=0;
+unsigned int vcPid=0, ySensFixTarget=0, *ySensFixAddr1=NULL, *ySensFixAddr2=NULL, *ySensFixAddr3=NULL, *ySensFixAddr4=NULL, *ySensFixAddr5=NULL, gameRunning=0, attemptCount=0;
 HANDLE hViceCity;
 
 //NOTIFYICONDATAW trayIcon;
@@ -37,23 +37,22 @@ int main()
     puts("VC Mouse Fix running.");
     while (1)
     {
-    startOfLoop:
         vcPid = 0;
         GetWindowThreadProcessId(FindWindowW(L"Grand theft auto 3", L"GTA: Vice City"), &vcPid);  // Get window handle of VC and store its PID
 
         if (!vcPid)
         {
             Sleep(500); // Slow refresh rate since it doesn't matter much at game launch
-            goto startOfLoop;
+            continue;
         }
         attemptCount++; // Adding an attempt counter for fun
         printf("Game process found (attempt #%d).\n", attemptCount);
         hViceCity = OpenProcess(PROCESS_ALL_ACCESS, FALSE, vcPid);  // Needed PID to open process handle
         gameRunning = 1;
     
-        ReadProcessMemory(hViceCity, (LPCVOID)0x608578, &versionValue, 1, 0); // Address used to detect version across all games. Not sure if it really was meant for that but it works.
+        ReadProcessMemory(hViceCity, (void*)0x608578, &version, 1, 0); // Address used to detect version across all games. Not sure if it really was meant for that but it works.
 
-        switch (versionValue)   // Set relevant mem addresses based on version
+        switch (version)   // Set relevant mem addresses based on version
         {
             case 0x44:  // JP
                 sensResetAddr = 0x46F821;    
@@ -77,7 +76,7 @@ int main()
                 ySensFixAddr4 = 0x47C0BF;
                 ySensFixAddr5 = 0x481FB3;
                 nastyGameAddr = 0x68DD68;
-                if (versionValue == 0x5D) break;    // The above values also apply to 1.0 so I'm cheating a bit here
+                if (version == 0x5D) break;    // The above values also apply to 1.0 so I'm cheating a bit here
                 ySensFixTarget = 0x94DBD8;    // Retail 1.1 only
                 puts("Retail 1.1 version detected.");
                 break;
@@ -91,18 +90,18 @@ int main()
                 ySensFixAddr5 = 0x481E93;
                 ySensFixTarget = 0x94CBD8;
                 nastyGameAddr = 0x68CD68;
-                puts("Steam/Green Pepper version detected.");
+                puts("Steam/Green Pepper/RGL version detected.");
                 break;
             default:
-                puts("Could not identify game version. Assuming this is disc verification/DRM. Retrying in 1 second.");
+                puts("Could not identify game version. Supported versions are INTL Retail 1.0/1.1, Steam, JP, RGL, and Green Pepper.");
                 CloseHandle(hViceCity);
-                Sleep(1000);
-                goto startOfLoop;
+                system("pause");
+                continue;
         };
 
         addrToWrite = sensResetAddr;
         for (char byte = 0; byte < 10; byte++)  // Writes 10 NOP instructions into this block to override sens reset
-            WriteProcessMemory(hViceCity, addrToWrite++, nop, 1, 0);
+            WriteProcessMemory(hViceCity, addrToWrite++, &nopVal, 1, 0);
         WriteProcessMemory(hViceCity, ySensFixAddr1, &ySensFixTarget, 4, 0);
         WriteProcessMemory(hViceCity, ySensFixAddr2, &ySensFixTarget, 4, 0);
         WriteProcessMemory(hViceCity, ySensFixAddr3, &ySensFixTarget, 4, 0);
@@ -110,17 +109,17 @@ int main()
         WriteProcessMemory(hViceCity, ySensFixAddr5, &ySensFixTarget, 4, 0);
         puts("Sens reset and y-axis sens fixes applied.");
 
-        ReadProcessMemory(hViceCity, nastyGameAddr, &nastyGameVal, 1, 0);
-        if (!nastyGameVal)
+        ReadProcessMemory(hViceCity, nastyGameAddr, &nastyGame, 1, 0);
+        if (!nastyGame)
         {
-            WriteProcessMemory(hViceCity, nastyGameAddr, one, 1, 0);
+            WriteProcessMemory(hViceCity, nastyGameAddr, &oneVal, 1, 0);
             puts("Nasty game fix applied.");
         }
 
         while (gameRunning)
         {
             Sleep(200);    // Shorter refresh rate to catch quick game restarts
-            gameRunning = ReadProcessMemory(hViceCity, (LPCVOID)0x608578, &versionValue, 1, 0);
+            gameRunning = ReadProcessMemory(hViceCity, (void*)0x608578, &version, 1, 0);
         }
         puts("Game closed. Awaiting new instance of VC process.");
         puts("");
