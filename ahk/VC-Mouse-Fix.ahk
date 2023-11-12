@@ -42,38 +42,53 @@ MainScript:
   
   GameRunningAddress := 0x400000
   
-  if Version = 0x5B            ; Steam
+  Switch Version           
   {
-    SensResetAddress := 0x46F391
-    YSensFixAddress1 := 0x4795D2
-    YSensFixAddress2 := 0x47A36D
-    YSensFixAddress3 := 0x47AED5
-    YSensFixAddress4 := 0x47BF9F
-    YSensFixAddress5 := 0x481E93
-    YSensFixTarget := 0x94CBD8
-  }
-  Else if Version = 0x44      ; JP
-  {
-    SensResetAddress := 0x46F821    
-    YSensFixAddress1 := 0x479AC9    ; Sniper first-person aim
-    YSensFixAddress2 := 0x47A864    ; Rocket launcher first-person aim
-    YSensFixAddress3 := 0x47B3CC    ; M4/ruger first-person aim
-    YSensFixAddress4 := 0x47C496    ; Normal free aim
-    YSensFixAddress5 := 0x48238A    ; "Runabout" (classic controls?)
-    YSensFixTarget := 0x94ABD8
-  }
-  Else                                ; Retail 1.0 and 1.1
-  {
-    SensResetAddress := 0x46F4B1    
-    YSensFixAddress1 := 0x4796F2
-    YSensFixAddress2 := 0x47A48D
-    YSensFixAddress3 := 0x47AFF5
-    YSensFixAddress4 := 0x47C0BF
-    YSensFixAddress5 := 0x481FB3
-    if Version = 0x81               ; Retail 1.1
-	  YSensFixTarget := 0x94DBD8    
-	else
-      YSensFixTarget := 0x94DBD0    ; Retail 1.0
+    Case 0x44:	; JP
+		SensResetAddress := 0x46F821
+		YSensFixTarget := 0x94ABD8
+		YSensFixAddress1 := 0x479AC9    ; Sniper first-person aim
+		YSensFixAddress2 := 0x47A864    ; Rocket launcher first-person aim
+		YSensFixAddress3 := 0x47B3CC    ; M4/ruger first-person aim
+		YSensFixAddress4 := 0x47C496    ; Normal free aim
+		YSensFixAddress5 := 0x48238A    ; "Runabout" (classic controls?)
+		NastyGameAddress := 0x68B110
+	Case 0x5D:	; Retail 1.0
+		SensResetAddress := 0x46F4B1 
+		YSensFixTarget := 0x94DBD0
+		YSensFixAddress1 := 0x4796F2
+		YSensFixAddress2 := 0x47A48D
+		YSensFixAddress3 := 0x47AFF5
+		YSensFixAddress4 := 0x47C0BF
+		YSensFixAddress5 := 0x481FB3
+		NastyGameAddress := 0x68DD68
+	Case 0x81:	; Retail 1.1, all values same except for YSensFixTarget
+		SensResetAddress := 0x46F4B1
+		YSensFixTarget := 0x94DBD8
+		YSensFixAddress1 := 0x4796F2
+		YSensFixAddress2 := 0x47A48D
+		YSensFixAddress3 := 0x47AFF5
+		YSensFixAddress4 := 0x47C0BF
+		YSensFixAddress5 := 0x481FB3
+		NastyGameAddress := 0x68DD68
+	Case 0x5B:      ; Steam
+		SensResetAddress := 0x46F391
+		YSensFixTarget := 0x94CBD8
+		YSensFixAddress1 := 0x4795D2
+		YSensFixAddress2 := 0x47A36D
+		YSensFixAddress3 := 0x47AED5
+		YSensFixAddress4 := 0x47BF9F
+		YSensFixAddress5 := 0x481E93
+		NastyGameAddress := 0x68CD68
+	Case 0xA1:		; Green Pepper; all values are exactly the same as Steam but AHK switch cases don't "fall through"
+		SensResetAddress := 0x46F391
+		YSensFixTarget := 0x94CBD8
+		YSensFixAddress1 := 0x4795D2
+		YSensFixAddress2 := 0x47A36D
+		YSensFixAddress3 := 0x47AED5
+		YSensFixAddress4 := 0x47BF9F
+		YSensFixAddress5 := 0x481E93
+		NastyGameAddress := 0x68CD68
   }
   
   If Memory(3, GameRunningAddress, 1) != "Fail"
@@ -88,6 +103,8 @@ MainScript:
     Memory(4, YSensFixAddress3, YSensFixTarget, 4)                                          
     Memory(4, YSensFixAddress4, YSensFixTarget, 4)                                          
     Memory(4, YSensFixAddress5, YSensFixTarget, 4)
+	If !Memory(3, NastyGameAddress, 1)
+		Memory(4, NastyGameAddress, 1, 1)
   }  
   
   While Memory(3, GameRunningAddress, 1) != "Fail" ; After setting values, do nothing until the game closes.
