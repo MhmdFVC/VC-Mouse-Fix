@@ -11,7 +11,7 @@ void exitProg(int signum);
 
 // Var declarations
 const BYTE nopVal=0x90, oneVal=1, *nop=&nopVal, *one=&oneVal;
-BYTE *addrToWrite=NULL, *sensResetAddr=NULL, *nastyGameAddr=NULL, *filenameBuffer=NULL, versionValue=0, nastyGameVal=0;
+BYTE *addrToWrite=NULL, *sensResetAddr=NULL, *nastyGameAddr=NULL, versionValue=0, nastyGameVal=0;
 DWORD vcPid=0, ySensFixTarget=0, *ySensFixAddr1=NULL, *ySensFixAddr2=NULL, *ySensFixAddr3=NULL, *ySensFixAddr4=NULL, *ySensFixAddr5=NULL, gameRunning=0, attemptCount=0;
 HANDLE hViceCity;
 
@@ -135,7 +135,6 @@ void exitProg(int signum)
     //Shell_NotifyIconW(NIM_DELETE, &trayIcon);
     if (gameRunning)
         CloseHandle(hViceCity);
-    free(filenameBuffer);
     puts("VC Mouse Fix closed.");
     exit(0);
 }
