@@ -3,9 +3,13 @@ Based off of [Lighnat0r's mouse sensitivity reset script](https://github.com/Lig
 **This is the only mouse fix permitted for Vice City speedruns that are to be submitted to the speedrun.com leaderboards as of 2023-04-29**  
 
 To use, run the program and keep it open for the duration of your gaming session. You will not need to manually set the sensitivity in your settings more than once, even if you forget to open the program and attempt to start a new game; running the program and resetting at that point will adjust your sensitivity to the correct settings.
-### Downloads
-#### - [Version 1.03](https://github.com/MhmdFVC/VC-Mouse-Fix/releases/download/1.03/VC-Mouse-Fix-1.03.exe) - Normal AHK version. No window, just sits as a low-key icon in your task area.
-#### - [Version 2.02](https://github.com/MhmdFVC/VC-Mouse-Fix/releases/download/2.02/VC-Mouse-Fix-2.02.exe) - New experimental version of the VC Mouse Fix written in C. Comes with console output which logs program status and session attempt count. Recommended for gamers with a Pentium 4 or below.
+## Downloads
+Comes as an ASI file. Just put this into your VC directory and play.
+### [Download Latest Version](https://github.com/MhmdFVC/VC-Mouse-Fix/releases/download/3.0/VC-Mouse-Fix.asi)
+
+You should probably just use the ASI so you don't need to open another program, but below are previous versions which do exactly the same thing.
+ - [Version 1.03](https://github.com/MhmdFVC/VC-Mouse-Fix/releases/download/1.03/VC-Mouse-Fix-1.03.exe) - Normal AHK version. No window, just sits as a low-key icon in your task area.
+ - [Version 2.02](https://github.com/MhmdFVC/VC-Mouse-Fix/releases/download/2.02/VC-Mouse-Fix-2.02.exe) - C program with console output which logs status and session attempt count.
 
 # Technical
 ## Sensitivity reset fix
