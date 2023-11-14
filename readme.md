@@ -38,4 +38,4 @@ This simply enables "nastyGame" if its value is set to 0 due to locale settings.
 * For JP, 1 is written to address 0x68B110 if the value there is 0.
 
 # Credits
-All memory addresses, values to write, and the memory read/write code are taken from Lighnat0r's scripts (the mouse sens reset script, and the y-axis fix ASI which this is a fork of; the mouse sens reset fix didn't have its own repo). Technical explanation of the addresses' functions graciously provided by Nick007J. Mouse icon within the program icon taken from [Freepik on Flaticon](https://www.flaticon.com/free-icons/mouse)
+All memory addresses, values to write, and the memory read/write code are taken from Lighnat0r's scripts (the mouse sens reset script, and the y-axis fix ASI which this is a fork of; the mouse sens reset fix didn't have its own repo). Lighnat0r's original y-sens fix ASI and the CPatch.h header was used as a base for my ASI version. Technical explanation of the addresses' functions graciously provided by Nick007J. Mouse icon within the program icon taken from [Freepik on Flaticon](https://www.flaticon.com/free-icons/mouse)
