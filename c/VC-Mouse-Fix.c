@@ -4,13 +4,14 @@
 #define RETAIL_1_1 0x81
 #define STEAM 0x5B
 #define GREEN_PEPPER 0xA1
-#define NOP 0x90
 #include <stdint.h>
-#include "Patch.h"
+#include <Windows.h>
 
 void Thread()
 {
     uint32_t sensResetAddr, ySensFixTarget, ySensFixAddr1, ySensFixAddr2, ySensFixAddr3, ySensFixAddr4, ySensFixAddr5, nastyGameAddr;
+    const uint8_t nop = 0x90, nastyGameEnabled = 1;
+
 	switch (VERSION)
 	{
         case JP:
@@ -49,13 +50,13 @@ void Thread()
             break;
 	}
 
-    for (uint32_t addrToWrite = sensResetAddr-1; addrToWrite < sensResetAddr+10; SetChar(++addrToWrite, NOP));
-    SetInt(ySensFixAddr1, ySensFixTarget);  // Sniper first-person aim
-    SetInt(ySensFixAddr2, ySensFixTarget);  // Rocket launcher first-person aim
-    SetInt(ySensFixAddr3, ySensFixTarget);  // M4/ruger first-person aim
-    SetInt(ySensFixAddr4, ySensFixTarget);  // Normal free aim    
-    SetInt(ySensFixAddr5, ySensFixTarget);  // "Runabout" (classic controls?)
-    SetChar(nastyGameAddr, 1);              // nastyGame
+    for (uint32_t addrToWrite = sensResetAddr; addrToWrite < sensResetAddr+10; memcpy((void*)addrToWrite++, &nop, 1));
+    memcpy((void*)ySensFixAddr1, &ySensFixTarget, 4);  // Sniper first-person aim
+    memcpy((void*)ySensFixAddr2, &ySensFixTarget, 4);  // Rocket launcher first-person aim
+    memcpy((void*)ySensFixAddr3, &ySensFixTarget, 4);  // M4/ruger first-person aim
+    memcpy((void*)ySensFixAddr4, &ySensFixTarget, 4);  // Normal free aim    
+    memcpy((void*)ySensFixAddr5, &ySensFixTarget, 4);  // "Runabout" (classic controls?)
+    memcpy((void*)nastyGameAddr, &nastyGameEnabled, 1);// nastyGame
 
 	return;
 }
