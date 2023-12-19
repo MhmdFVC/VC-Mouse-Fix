@@ -31,10 +31,10 @@ The addresses noted below will be provided in the above order.
 * For JP, the value 0x94ABD8 is written to addresses 0x00479AC9, 0x0047A864, 0x0047B3CC, 0x0047C496, and 0x0048238A.
 
 ## Nasty game fix
-This simply enables "nastyGame" if its value is set to 0 due to locale settings.
-* For Retail 1.0/1.1, 1 is written to address 0x68DD68 if the value there is 0.
-* For Steam/Green Pepper, 1 is written to address 0x68CD68 if the value there is 0.
-* For JP, 1 is written to address 0x68B110 if the value there is 0.
+This simply enables "nastyGame" so long as the initial game language is not French nor German.
+* For Retail 1.0/1.1, 1 is written to address 0x68DD68
+* For Steam/Green Pepper, 1 is written to address 0x68CD68
+* For JP, 1 is written to address 0x68B110.
 
 # Credits
 All memory addresses, values to write, and the memory read/write code are taken from Lighnat0r's scripts (the mouse sens reset script, and the y-axis fix ASI which this is a fork of; the mouse sens reset fix didn't have its own repo). Lighnat0r's original y-sens fix ASI and the CPatch.h header was used as a base for my ASI version. Technical explanation of the addresses' functions graciously provided by Nick007J. Mouse icon within the program icon taken from [Freepik on Flaticon](https://www.flaticon.com/free-icons/mouse)
