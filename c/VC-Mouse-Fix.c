@@ -2,7 +2,7 @@
 #define JP 0x44
 #define RETAIL_1_0 0x5D
 #define RETAIL_1_1 0x81
-#define STEAM 0x5B
+#define STEAM_RGL 0x5B
 #define GREEN_PEPPER 0xA1
 #define FRENCH 1
 #define GERMAN 2
@@ -42,8 +42,9 @@ void Thread()
             nastyGameAddr = 0x68DD68;
             if (VERSION == RETAIL_1_0) break;   // The above values also apply to 1.0
             ySensFixTarget = 0x94DBD8;    // Retail 1.1 only
+            langAddr = 0x869688;          // Retail 1.1 only
             break;
-        case STEAM:
+        case STEAM_RGL:
         case GREEN_PEPPER:
             sensResetAddr = 0x46F391;
             ySensFixAddr1 = 0x4795D2;
@@ -53,6 +54,7 @@ void Thread()
             ySensFixAddr5 = 0x481E93;
             ySensFixTarget = 0x94CBD8;
             nastyGameAddr = 0x68CD68;
+            langAddr = 0x868688;
             break;
 	}
 
@@ -63,7 +65,7 @@ void Thread()
     patch((void*)ySensFixAddr4, &ySensFixTarget, 4);  // Normal free aim    
     patch((void*)ySensFixAddr5, &ySensFixTarget, 4);  // "Runabout" (classic controls?)
     if (*(uint8_t*)langAddr != FRENCH && *(uint8_t*)langAddr != GERMAN)
-        patch((void*)nastyGameAddr, &nastyGameEnabled, 1);// nastyGame -- only at game start, doesn't work for changing languages.
+        patch((void*)nastyGameAddr, &nastyGameEnabled, 1); // nastyGame patch -- only at game start (i.e. doesn't reapply when changing languages)
 
 	return;
 }
