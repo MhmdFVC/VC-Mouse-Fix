@@ -4,11 +4,11 @@ Based off of [Lighnat0r's mouse sensitivity reset script](https://github.com/Lig
 
 ## Downloads
 Comes as an ASI file. Just put this into your VC directory and play.
-### [Download Latest Version](https://github.com/MhmdFVC/VC-Mouse-Fix/releases/download/3.0/VC-Mouse-Fix.asi)
+### [Download Latest Version (ASI, recommended)](https://github.com/MhmdFVC/VC-Mouse-Fix/releases/download/3.0/VC-Mouse-Fix.asi)
 
 You should probably just use the ASI so you don't need to open another program, but below are previous versions which do exactly the same thing.
- - [Version 1.03](https://github.com/MhmdFVC/VC-Mouse-Fix/releases/download/1.03/VC-Mouse-Fix-1.03.exe) - Normal AHK version. No window, just sits as a low-key icon in your task area.
- - [Version 2.02](https://github.com/MhmdFVC/VC-Mouse-Fix/releases/download/2.02/VC-Mouse-Fix-2.02.exe) - C program with console output which logs status and session attempt count.
+ - [Version 1.03 (AHK)](https://github.com/MhmdFVC/VC-Mouse-Fix/releases/download/1.03/VC-Mouse-Fix-1.03.exe) - Normal AHK version. No window, just sits as a low-key icon in your task area.
+ - [Version 2.02 (EXE)](https://github.com/MhmdFVC/VC-Mouse-Fix/releases/download/2.02/VC-Mouse-Fix-2.02.exe) - Program with console output which logs status and session attempt count.
 
 # Technical
 ## Sensitivity reset fix
